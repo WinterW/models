@@ -22,7 +22,7 @@ from datasets import cifar10
 from datasets import flowers
 from datasets import imagenet
 from datasets import mnist
-
+from datasets import dataset
 datasets_map = {
     'cifar10': cifar10,
     'flowers': flowers,
@@ -49,7 +49,12 @@ def get_dataset(name, split_name, dataset_dir, file_pattern=None, reader=None):
     ValueError: If the dataset `name` is unknown.
   """
   if name not in datasets_map:
-    raise ValueError('Name of dataset unknown %s' % name)
+    print('Name of dataset unknown %s is not official support, use dataset.py replaced.' % name)
+    return dataset.get_split(
+      split_name,
+      dataset_dir,
+      file_pattern,
+      reader)
   return datasets_map[name].get_split(
       split_name,
       dataset_dir,
